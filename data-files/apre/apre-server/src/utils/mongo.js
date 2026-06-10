@@ -6,18 +6,24 @@
 'use strict'
 
 // Require statements
+const dns = require('dns')
 const { MongoClient } = require('mongodb')
 const config = require('./config')
+
+// Force Node to use public DNS servers for MongoDB Atlas SRV lookup
+dns.setServers(['8.8.8.8', '8.8.4.4'])
 
 // Connection string for MongoDB Atlas
 const MONGO_URL = config.dbUrl
 
-const mongo = async(operations, next) => {
+const mongo = async (operations, next) => {
+  let client
+
   try {
     console.log('Connecting to MongoDB Atlas...', MONGO_URL)
 
     // Connect to the MongoDB cluster
-    const client = await MongoClient.connect(MONGO_URL);
+    client = await MongoClient.connect(MONGO_URL)
 
     // Select the database
     const db = client.db(config.dbname)
@@ -26,19 +32,21 @@ const mongo = async(operations, next) => {
     // Execute the passed in operation
     await operations(db)
     console.log('Operation was successful')
-
-    // Close the connection
-    client.close()
-    console.log('Closing connection to MongoDB Atlas...')
   } catch (err) {
     // Catch any errors and throw an error 500 status
-    const error = new Error('Error connecting to db ' + err) // NOTE: updated this during sprint 4
+    const error = new Error('Error connecting to db ' + err)
     error.status = 500
 
     // Log out the error
     console.log('Error connecting to db', err)
 
     next(error)
+  } finally {
+    if (client) {
+      // Close the connection
+      await client.close()
+      console.log('Closing connection to MongoDB Atlas...')
+    }
   }
 }
 
