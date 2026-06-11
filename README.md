@@ -61,3 +61,15 @@ The courses repository consist of two directories: data-files and examples. The 
 git clone https://github.com/buwebdev/web-450.git
 cd web-450
 ```
+## Week 2 Major Task - M-064 Monthly Sales Report
+
+This update adds a Monthly Sales Report to the APRE application.
+
+### Server
+
+Start the APRE server:
+
+```powershell
+cd data-files\apre\apre-server
+npm install
+npm start
