@@ -44,7 +44,7 @@ import { CommonModule } from '@angular/common';
         <div class="form__actions">
           <!-- Week 2 Minor Task m-002:
                Updated button text to make the user save action clearer. -->
-          <input type="submit" class="button button--primary" value="Save User">
+          <input type="submit" class="button button--primary" value="Create User">
         </div>
       </form>
       <br />
