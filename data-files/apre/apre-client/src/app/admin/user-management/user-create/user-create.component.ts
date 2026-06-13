@@ -27,8 +27,11 @@ import { environment } from '../../../../environments/environment';
         </div>
 
         <div class="form__group">
-          <label class="label" for="password">Email<span class="required">*</span></label>
-          <input class="input" type="text" formControlName="email" id="email" name="email">
+          <!-- Week 3 Minor Task m-004:
+               Corrected the Email label's for attribute and added a placeholder
+               so the field is easier to identify and use. -->
+          <label class="label" for="email">Email<span class="required">*</span></label>
+          <input class="input" type="email" formControlName="email" id="email" name="email" placeholder="Enter email">
         </div>
 
         <div class="form__group">
